@@ -1,4 +1,4 @@
-Phase 1 : 
+Phase 0 : 
 ✅ Priority classifier loaded successfully
 ✅ Criticality regressor loaded successfully
 Base model required: <exact Qwen model name>
@@ -6,4 +6,23 @@ Base model required: <exact Qwen model name>
 ✅ tokenizer.json is valid
 ✅ PHASE 0 PASSED — MODELS ARE READY
 
-Phase 2: 
+Phase 1 summary — Input Validation
+Phase 1 adds a validation layer before XGBoost inference.
+app/feature_schema.py defines the exact 61 features required by both models.
+app/schemas.py validates incoming data:all 61 fields must be present;
+no extra fields are allowed;
+each value must be numeric and finite (no null, NaN, or infinity).
+
+app/main.py exposes:GET /health to confirm the service is running;
+POST /validate to validate a feature payload.
+
+Run the service with:
+uvicorn app.main:app --reload
+Test it at:
+http://127.0.0.1:8000/docs
+
+Phase 2 connects the validated 61-feature input to the saved XGBoost classifier and regressor.
+The service loads both models once and reuses them for later API requests.
+It preserves the exact feature order used during model training before predicting.
+POST /predict returns the raw priority class, class probabilities, and a criticality score.
+The priority labels 0, 1, and 2 still need confirmation before being shown as LOW, MEDIUM, or HIGH.
