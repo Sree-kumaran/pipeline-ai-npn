@@ -26,3 +26,10 @@ The service loads both models once and reuses them for later API requests.
 It preserves the exact feature order used during model training before predicting.
 POST /predict returns the raw priority class, class probabilities, and a criticality score.
 The priority labels 0, 1, and 2 still need confirmation before being shown as LOW, MEDIUM, or HIGH.
+
+Phase 3 summary — Qwen LoRA explanation layer
+Phase 3 integrates the local PriorAuthLM LoRA adapter with its required base model, Qwen/Qwen2.5-1.5B-Instruct.
+The API runs the XGBoost priority and criticality predictions first, then passes those results with a clinical summary to the language model.
+POST /explain returns both the structured XGBoost output and a generated prior-authorization explanation.
+The model is loaded once and reused for later requests, improving response time after the initial load.
+The generated explanation is assistive only and must not be treated as a final clinical or authorization decision.

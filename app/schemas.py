@@ -36,3 +36,6 @@ class PredictionRequest(BaseModel):
                 )
 
         return self
+
+class ExplanationRequest(PredictionRequest):
+    clinical_summary: str
