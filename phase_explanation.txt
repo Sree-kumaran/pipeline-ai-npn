@@ -1,0 +1,9 @@
+Phase 1 : 
+✅ Priority classifier loaded successfully
+✅ Criticality regressor loaded successfully
+Base model required: <exact Qwen model name>
+✅ LoRA adapter weights are readable
+✅ tokenizer.json is valid
+✅ PHASE 0 PASSED — MODELS ARE READY
+
+Phase 2: 
