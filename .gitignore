@@ -25,3 +25,6 @@ coverage.xml
 .vscode/settings.json
 .DS_Store
 Thumbs.db
+
+#Test using the generator file
+generate_payload.py
