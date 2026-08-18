@@ -39,3 +39,43 @@ class PredictionRequest(BaseModel):
 
 class ExplanationRequest(PredictionRequest):
     clinical_summary: str
+
+class CriticalityRuleResult(BaseModel):
+    level: str
+    score: float
+
+
+class PriorityRuleResult(BaseModel):
+    level: str
+    score: float
+
+
+class MedicalNecessityRuleResult(BaseModel):
+    status: str
+    score: float
+
+
+class AuthorizationRuleResult(BaseModel):
+    required: bool
+
+
+class RuleEngineResult(BaseModel):
+    criticality: CriticalityRuleResult
+    priority: PriorityRuleResult
+    medical_necessity: MedicalNecessityRuleResult
+    authorization: AuthorizationRuleResult
+    decision: str
+
+
+class TriggeredRule(BaseModel):
+    rule_id: str
+    rule_name: str
+    result: str
+    impact: str
+
+
+class AssessmentRequest(ExplanationRequest):
+    patient_id: str
+    rule_engine_result: RuleEngineResult
+    triggered_rules: list[TriggeredRule]
+    explanation: list[str]

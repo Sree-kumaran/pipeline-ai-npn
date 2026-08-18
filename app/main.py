@@ -3,6 +3,8 @@ from fastapi import FastAPI, HTTPException
 from app.llm_service import generate_explanation
 from app.model_service import predict
 from app.schemas import ExplanationRequest, PredictionRequest
+from app.decision_service import create_assessment
+from app.schemas import AssessmentRequest
 
 app = FastAPI(
     title="Inference Pipeline",
@@ -57,4 +59,17 @@ def create_explanation(request: ExplanationRequest):
         raise HTTPException(
             status_code=500,
             detail=f"Explanation generation failed: {error}",
+        )
+
+@app.post("/assess")
+def create_final_assessment(request: AssessmentRequest):
+    try:
+        return {
+            "success": True,
+            "assessment": create_assessment(request),
+        }
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Assessment failed: {str(error)}",
         )

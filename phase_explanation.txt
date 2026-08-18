@@ -33,3 +33,12 @@ The API runs the XGBoost priority and criticality predictions first, then passes
 POST /explain returns both the structured XGBoost output and a generated prior-authorization explanation.
 The model is loaded once and reused for later requests, improving response time after the initial load.
 The generated explanation is assistive only and must not be treated as a final clinical or authorization decision.
+
+## Phase 4 summary — Rule Engine integration
+
+Phase 4 combines the existing Rule Engine response with XGBoost predictions and the PriorAuthLM explanation.  
+`POST /assess` accepts the patient ID, Rule Engine result, triggered rules, explanations, clinical summary, and 61 model features.  
+The Rule Engine remains authoritative for the final decision and whether authorization is required.  
+AI outputs are included as assistive information and cannot override Rule Engine logic.  
+The response also flags cases requiring human review, such as `insufficient_information` medical necessity.
+
