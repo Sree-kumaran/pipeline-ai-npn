@@ -1,0 +1,13 @@
+services:
+  inference-pipeline:
+    build: .
+    container_name: inference-pipeline
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models:ro
+      - huggingface-cache:/cache/huggingface
+    restart: unless-stopped
+
+volumes:
+  huggingface-cache:

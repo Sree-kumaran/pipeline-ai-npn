@@ -42,3 +42,10 @@ The Rule Engine remains authoritative for the final decision and whether authori
 AI outputs are included as assistive information and cannot override Rule Engine logic.  
 The response also flags cases requiring human review, such as `insufficient_information` medical necessity.
 
+## Phase 5 summary — Automated testing
+
+Phase 5 added automated tests for the API endpoints and pipeline behavior.  
+The tests verify API health, valid 61-feature input, rejection of incomplete input, XGBoost prediction output, and Rule Engine decision preservation.  
+The LLM call is mocked during testing so tests remain fast and do not repeatedly load the Qwen model.  
+All five tests passed successfully.  
+The remaining warnings are non-blocking dependency and XGBoost-version compatibility notices.
