@@ -35,7 +35,7 @@ def make_prediction(request: PredictionRequest):
         return {
             "success": True,
             "prediction": predict(request.features),
-            "note": "Priority classes 0/1/2 need confirmed business-label mapping.",
+            "note": "Priority classes mapped: 0=LOW, 1=MEDIUM, 2=HIGH.",
         }
     except Exception as error:
         raise HTTPException(status_code=500, detail=f"Inference failed: {error}")
